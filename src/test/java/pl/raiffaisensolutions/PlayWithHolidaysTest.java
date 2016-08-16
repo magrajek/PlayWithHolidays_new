@@ -5,35 +5,81 @@ import org.junit.Test;
 import pl.raiffeisensolutions.PlayWithHolidays;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 
 import static org.junit.Assert.assertEquals;
 
 public class PlayWithHolidaysTest {
-    PlayWithHolidays playWithHolidays;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
-    public static final String PLAY_WITH_HOLIDAYS_SRC_MAIN_RESOURCES_HOLIDAYS_TXT = "C:\\Users\\rb21690\\IdeaProjects\\PlayWithHolidays\\src\\main\\resources\\holidays.txt";
+    private static final String PLAY_WITH_HOLIDAYS_SRC_MAIN_RESOURCES_HOLIDAYS_TXT = "C:\\Users\\rb21690\\IdeaProjects\\PlayWithHolidays\\src\\main\\resources\\holidays.txt";
 
     @Before
         public void setUp() throws Exception {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd");
-        LocalDate checkingDate = LocalDate.parse("2016-01-01");
-            PlayWithHolidays playWithHolidays = new PlayWithHolidays(PLAY_WITH_HOLIDAYS_SRC_MAIN_RESOURCES_HOLIDAYS_TXT,1,checkingDate);
+
         }
 
-        @Test
+    @Test
         public void checkIfDayIsAHoliday() {
-            // when
-            LocalDate checkingDate = LocalDate.parse("2016-01-01");
-            int i = playWithHolidays.checkHoliday(checkingDate);
-
-            // then
-            assertEquals(0, i);
+            PlayWithHolidays playWithHolidays = new PlayWithHolidays(PLAY_WITH_HOLIDAYS_SRC_MAIN_RESOURCES_HOLIDAYS_TXT);
+            LocalDate dateToCheck = LocalDate.parse("2016-02-02");
+            boolean testResult = playWithHolidays.checkHoliday(dateToCheck);
+            assertEquals(false, testResult);
         }
 
+    @Test
+    public void checkIfDayIsAHoliday2() {
+        PlayWithHolidays playWithHolidays = new PlayWithHolidays(PLAY_WITH_HOLIDAYS_SRC_MAIN_RESOURCES_HOLIDAYS_TXT);
+        LocalDate dateToCheck = LocalDate.parse("2016-01-01");
+        boolean testResult = playWithHolidays.checkHoliday(dateToCheck);
+        assertEquals(true, testResult);
+    }
 
+    @Test
+    public void checkWhenWillBeAHoliday() {
+        PlayWithHolidays playWithHolidays = new PlayWithHolidays(PLAY_WITH_HOLIDAYS_SRC_MAIN_RESOURCES_HOLIDAYS_TXT);
+        LocalDate dateToCheck = LocalDate.parse("2016-01-01");
+        long testResult = playWithHolidays.checkWhenWillBeHoliday(dateToCheck);
+        assertEquals(0, testResult);
+    }
 
+    @Test
+    public void checkWhenWillBeAHoliday2() {
+        PlayWithHolidays playWithHolidays = new PlayWithHolidays(PLAY_WITH_HOLIDAYS_SRC_MAIN_RESOURCES_HOLIDAYS_TXT);
+        LocalDate dateToCheck = LocalDate.parse("2016-03-01");
+        long testResult = playWithHolidays.checkWhenWillBeHoliday(dateToCheck);
+        assertEquals(61, testResult);
+    }
 
+    @Test
+    public void checkWhenWasAHoliday() {
+        PlayWithHolidays playWithHolidays = new PlayWithHolidays(PLAY_WITH_HOLIDAYS_SRC_MAIN_RESOURCES_HOLIDAYS_TXT);
+        LocalDate dateToCheck = LocalDate.parse("2016-03-01");
+        long testResult = playWithHolidays.checkWhenWasHoliday(dateToCheck);
+        assertEquals(55, testResult);
+    }
+
+    @Test
+    public void checkWhenWasAHoliday2() {
+        PlayWithHolidays playWithHolidays = new PlayWithHolidays(PLAY_WITH_HOLIDAYS_SRC_MAIN_RESOURCES_HOLIDAYS_TXT);
+        LocalDate dateToCheck = LocalDate.parse("2016-03-07");
+        long testResult = playWithHolidays.checkWhenWasHoliday(dateToCheck);
+        assertEquals(61, testResult);
+    }
+
+    @Test
+    public void checkNextWorkingDay() {
+        PlayWithHolidays playWithHolidays = new PlayWithHolidays(PLAY_WITH_HOLIDAYS_SRC_MAIN_RESOURCES_HOLIDAYS_TXT);
+        LocalDate dateToCheck = LocalDate.parse("2016-03-07");
+        LocalDate testResult = playWithHolidays.checkNextWorkingDay(dateToCheck, 20);
+        assertEquals(LocalDate.parse("2016-03-27"), testResult);
+    }
+
+    @Test
+    public void checkNextWorkingDay2() {
+        PlayWithHolidays playWithHolidays = new PlayWithHolidays(PLAY_WITH_HOLIDAYS_SRC_MAIN_RESOURCES_HOLIDAYS_TXT);
+        LocalDate dateToCheck = LocalDate.parse("2016-03-07");
+        LocalDate testResult = playWithHolidays.checkNextWorkingDay(dateToCheck, 10);
+        assertEquals(LocalDate.parse("2016-03-17"), testResult);
+    }
 
 
 
