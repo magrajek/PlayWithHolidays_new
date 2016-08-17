@@ -7,23 +7,23 @@ import java.util.logging.Logger;
 
 public class Main {
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
-    private static final String PLAY_WITH_HOLIDAYS_SRC_MAIN_RESOURCES_HOLIDAYS_TXT = "C:\\Users\\rb21690\\IdeaProjects\\PlayWithHolidays\\src\\main\\resources\\holidays.txt";
+    private static final String INPUT_FILE = ".\\src\\main\\resources\\holidays.txt";
 
 
     public static void main(String[] args) {
 
-        PlayWithHolidays playWithHolidays = new PlayWithHolidays(PLAY_WITH_HOLIDAYS_SRC_MAIN_RESOURCES_HOLIDAYS_TXT);
+        PlayWithHolidays playWithHolidays = new PlayWithHolidays(INPUT_FILE);
         LocalDate dateToCheck = LocalDate.parse("2016-02-02");
 try {
     if(playWithHolidays.checkHoliday(dateToCheck))
-        System.out.println("Given day is a holiday.");
-    else System.out.println("Given day is not a holiday.");
+        LOGGER.info("Given day is a holiday.");
+    else LOGGER.info("Given day is not a holiday.");
 
-    System.out.println("Last holiday was " + playWithHolidays.checkWhenWasHoliday(dateToCheck)+ " days ago.");
+    LOGGER.info("Last holiday was " + playWithHolidays.checkWhenWasHoliday(dateToCheck)+ " days ago.");
 
-    System.out.println("Next working day is " + playWithHolidays.checkNextWorkingDay(dateToCheck, 10));
+    LOGGER.info("Next working day is " + playWithHolidays.checkNextWorkingDay(dateToCheck, 10));
 
-    System.out.println("Next holiday is going to be in " + playWithHolidays.checkWhenWillBeHoliday(dateToCheck) + " days.");
+    LOGGER.info("Next holiday is going to be in " + playWithHolidays.checkWhenWillBeHoliday(dateToCheck) + " days.");
 
 
 }catch(DateTimeParseException exp){

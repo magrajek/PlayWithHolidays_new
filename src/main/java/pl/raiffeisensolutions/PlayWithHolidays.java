@@ -28,11 +28,11 @@ public class PlayWithHolidays {
         boolean testResult=false;
         for (LocalDate item : listDate)
             if (item.equals(dateToCheck)) {
-                LOGGER.info("Date " + dateToCheck.format(formatter) + " is a holiday");
+           //     LOGGER.info("Date " + dateToCheck.format(formatter) + " is a holiday");
                     testResult=true;
             }
         if (!testResult){
-            LOGGER.info("Date " + dateToCheck.format(formatter) + " is not a holiday");
+           //LOGGER.info("Date " + dateToCheck.format(formatter) + " is not a holiday");
         }
         return testResult;
     }
@@ -44,9 +44,9 @@ public class PlayWithHolidays {
 
         for (int i=0;i<workDays;i++) {
             nextWorkingDay = nextWorkingDay.plusDays(1);
-            if(nextWorkingDay.getDayOfWeek().equals("SUNDAY"))
-                nextWorkingDay = nextWorkingDay.plusDays(1);
             if(nextWorkingDay.getDayOfWeek().equals("SATURDAY"))
+                nextWorkingDay = nextWorkingDay.plusDays(1);
+            if(nextWorkingDay.getDayOfWeek().equals("SUNDAY"))
                 nextWorkingDay = nextWorkingDay.plusDays(1);
             if(listDate.contains(nextWorkingDay))
                 nextWorkingDay = nextWorkingDay.plusDays(1);
@@ -58,7 +58,7 @@ public class PlayWithHolidays {
     public long checkWhenWasHoliday(LocalDate dateToCheck){
         //Function to check when was a holiday.
         List<LocalDate> sortedListDate = new ArrayList<>();
-        long numberOfDaysBetweenGivenDayAndPreviousHoliday;
+        long numberOfDaysBetweenGivenDayAndPreviousHoliday = 0;
                 sortedListDate.addAll(listDate);
         sortedListDate.add(dateToCheck);
         Collections.sort(sortedListDate);
@@ -71,17 +71,17 @@ public class PlayWithHolidays {
         int indexOfGivenDate = sortedListDate.indexOf(dateToCheck);
 
         if (indexOfGivenDate==0)
-            LOGGER.info("There are not any holidays defined before the given date.");
+            //LOGGER.info("There are not any holidays defined before the given date.");
 
         numberOfDaysBetweenGivenDayAndPreviousHoliday = ChronoUnit.DAYS.between(sortedListDate.get(indexOfGivenDate-1), sortedListDate.get(indexOfGivenDate));
-        LOGGER.info("Last holiday was " + numberOfDaysBetweenGivenDayAndPreviousHoliday + " days before.");
+        //LOGGER.info("Last holiday was " + numberOfDaysBetweenGivenDayAndPreviousHoliday + " days before.");
         return numberOfDaysBetweenGivenDayAndPreviousHoliday;
     }
 
     public long checkWhenWillBeHoliday(LocalDate dateToCheck){
         //Function to check when will be a holiday.
         List<LocalDate> sortedListDate = new ArrayList<LocalDate>();
-        long numberOfDaysBetweenGivenDayAndNextHoliday;
+        long numberOfDaysBetweenGivenDayAndNextHoliday = 0;
         sortedListDate.addAll(listDate);
         sortedListDate.add(dateToCheck);
         Collections.sort(sortedListDate);
@@ -95,10 +95,10 @@ public class PlayWithHolidays {
         int indexOfGivenDate = sortedListDate.indexOf(dateToCheck);
 
         if (indexOfGivenDate==(sortedListDate.size()-1))
-            LOGGER.info("There are not any holidays defined after the given date.");
+        //    LOGGER.info("There are not any holidays defined after the given date.");
 
         numberOfDaysBetweenGivenDayAndNextHoliday = ChronoUnit.DAYS.between(sortedListDate.get(indexOfGivenDate), sortedListDate.get(indexOfGivenDate+1));
-        LOGGER.info("Next holiday is going to be in " + numberOfDaysBetweenGivenDayAndNextHoliday + " days.");
+        //LOGGER.info("Next holiday is going to be in " + numberOfDaysBetweenGivenDayAndNextHoliday + " days.");
         return numberOfDaysBetweenGivenDayAndNextHoliday;
     }
 
@@ -111,7 +111,7 @@ public class PlayWithHolidays {
             parseDates(item);
 
         }catch (DateTimeParseException e) {
-            LOGGER.info("There is unparseable date in the file using yyyy-MM-dd format");
+         //   LOGGER.info("There is unparseable date in the file using yyyy-MM-dd format");
             System.exit(2);
         }
         }
@@ -136,7 +136,6 @@ public class PlayWithHolidays {
         }
 
         checkEmptyFile(listString);
-
 
     }
 
